@@ -4,7 +4,7 @@ import re
 
 def password_policy_1(password_data):
     required_letter = get_required_letter(password_data)
-    min_count, max_count = get_required_count_for_letter(password_data)
+    min_count, max_count = password_policy_requirements(password_data)
     password = password_data.split(' ')[-1]
     occurances = password.count(required_letter)
     return True if occurances >= min_count and occurances <= max_count else False
@@ -12,7 +12,7 @@ def password_policy_1(password_data):
 
 def password_policy_2(password_data):
     required_letter = get_required_letter(password_data)
-    position_1, position_2 = get_required_count_for_letter(password_data)
+    position_1, position_2 = password_policy_requirements(password_data)
     password = password_data.split(' ')[-1]
     letter_a = int(password[position_1 - 1] == required_letter)
     letter_b = int(password[position_2 - 1] == required_letter)
@@ -24,7 +24,7 @@ def get_required_letter(password):
     return split_password[1].replace(':', '')
 
 
-def get_required_count_for_letter(password):
+def password_policy_requirements(password):
     split_password = password.split(' ')
     requirements = split_password[0]
     min, max = requirements.split('-')

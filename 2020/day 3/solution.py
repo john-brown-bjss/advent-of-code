@@ -10,6 +10,7 @@ class GridTraverser():
         self.y_increment = y_increment
         self.grid_template = self.extrapolate_grid(debug)
         self.height = len(self.grid_template)
+        self.width = len(self.grid_template[0])
         self.tree_marker = '#'
 
     def extrapolate_grid(self, debug):
@@ -30,19 +31,10 @@ class GridTraverser():
         else:
             path = os.path.join(os.path.dirname(__file__), 'inputs.txt')
             with open(path, 'r') as file_handle:
-                grid = []
-                template = file_handle.read().splitlines()
-
-                grid_height = len(template)
-                required_width = (ceil(grid_height / len(template[0]))) * self.x_increment
-                for row in template:
-                    grid.append(row * required_width)
-                return grid
+                return file_handle.read().splitlines()
 
     def get_point_in_traverse(self, x, y):
-        grid = self.grid_template[y]
-        points = grid[x:x+self.x_increment + 1]
-        return points[-1]
+        return self.grid_template[y][x]
 
     def contains_tree(self, point):
         return int(point == self.tree_marker)
@@ -50,11 +42,11 @@ class GridTraverser():
     def get_number_of_trees(self):
         total_trees = 0
         x = 0
-        y = 1
-        while(y < self.height):
+        y = 0
+        while y < self.height:
             point = self.get_point_in_traverse(x, y)
             total_trees += self.contains_tree(point)
-            x += self.x_increment
+            x = (self.x_increment + x) % self.width
             y += self.y_increment
         return total_trees
 

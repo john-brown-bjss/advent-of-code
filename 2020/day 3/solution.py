@@ -33,9 +33,6 @@ class GridTraverser():
             with open(path, 'r') as file_handle:
                 return file_handle.read().splitlines()
 
-    def get_point_in_traverse(self, x, y):
-        return self.grid_template[y][x]
-
     def contains_tree(self, point):
         return int(point == self.tree_marker)
 
@@ -44,7 +41,7 @@ class GridTraverser():
         x = 0
         y = 0
         while y < self.height:
-            point = self.get_point_in_traverse(x, y)
+            point = self.grid_template[y][x]
             total_trees += self.contains_tree(point)
             x = (self.x_increment + x) % self.width
             y += self.y_increment

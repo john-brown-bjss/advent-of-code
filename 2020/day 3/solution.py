@@ -75,5 +75,6 @@ if __name__ == "__main__":
         [7, 1],
         [1, 2],
     ]
-    trees_in_splopes = calculate_slopes(slopes)
-    print(f'Total number of trees: {prod(trees_in_splopes)}')
+    trees_in_slopes = calculate_slopes(slopes)
+    print(f'Trees for solution a: {trees_in_slopes[1]}')
+    print(f'Trees for solution b: {prod(trees_in_slopes)}')
